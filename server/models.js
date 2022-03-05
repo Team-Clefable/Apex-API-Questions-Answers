@@ -40,17 +40,17 @@ module.exports = {
     })
   },
 
-  // updateQuestionHelpful: (req, res) => {
-  //   let { id } = req.params;
-  //   db.updateQuestionHelpful(id, (err, results) => {
-  //     console.log('this is results:', results);
-  //     if (err) {
-  //       res.status(500).send(err);
-  //     } else {
-  //       res.status(200).send(results);
-  //     }
-  //   })
-  // },
+  updateAnswerHelpful: (req, res) => {
+    console.log('this is answer req.params:', req.params);
+    let { id } = req.params;
+    db.updateQuestionHelpful(id, (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(results);
+      }
+    })
+  },
 
 
 

@@ -21,8 +21,9 @@ router
   .put(models.updateQuestionReport)
 
 router
-  // .route('/answers/:id/helpful')
-  //.put()
+  .route('/answers/:id/helpful')
+  .put(models.updateAnswerHelpful)
+
 router
   // .route('/answers/:id/report')
   //.put()
