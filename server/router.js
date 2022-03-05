@@ -25,7 +25,7 @@ router
   .put(models.updateAnswerHelpful)
 
 router
-  // .route('/answers/:id/report')
-  //.put()
+  .route('/answers/:id/report')
+  .put(models.updateAnswerReport)
 
 module.exports = router;

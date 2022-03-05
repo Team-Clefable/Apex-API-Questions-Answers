@@ -52,6 +52,15 @@ module.exports = {
     })
   },
 
-
+  updateAnswerReport: (req, res) => {
+    let { id } = req.params;
+    db.updateAnswerReport(id, (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(results);
+      }
+    })
+  },
 
 }

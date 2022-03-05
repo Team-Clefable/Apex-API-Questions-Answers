@@ -73,17 +73,17 @@ module.exports = {
     });
   },
 
-  // updateAnswerReport: (answerId, callback) => {
-  //   let queryStr = `UPDATE answers SET reported = true WHERE id = $1`;
-  //   pool.query(queryStr, [answerId], (err, res) => {
-  //     console.log(err);
-  //     if (err) {
-  //       callback(err);
-  //     } else {
-  //       callback(null, res);
-  //     }
-  //   });
-  // },
+  updateAnswerReport: (answerId, callback) => {
+    let queryStr = `UPDATE answers SET reported = true WHERE id = $1`;
+    pool.query(queryStr, [answerId], (err, res) => {
+      console.log(err);
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, res);
+      }
+    });
+  },
 
 
 
