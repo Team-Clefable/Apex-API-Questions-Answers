@@ -1,5 +1,7 @@
 const db = require('./db');
 
+// const date = Math.round(new Date().getTime()/1000);
+
 module.exports = {
 
 
@@ -7,7 +9,7 @@ module.exports = {
     let { id } = req.params;
     // console.log(req.params);
     db.queryAllQuestions(id, (err, results) => {
-      console.log(err);
+      // console.log(err);
       if (err) {
         res.status(500).send(err);
       } else {
@@ -16,11 +18,23 @@ module.exports = {
     });
   },
 
+  ///////currently working on////
+  addQuestion: (req, res) => {
+    let { id } = req.params;
+    db.addQuestion(id, date, req.body, (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(201).send(results);
+      }
+    });
+  },
+
   updateQuestionHelpful: (req, res) => {
-    console.log(req.params);
+    // console.log(req.params);
     let { id } = req.params;
     db.updateQuestionHelpful(id, (err, results) => {
-      console.log('this is results:', results);
+      // console.log('this is results:', results);
       if (err) {
         res.status(500).send(err);
       } else {
@@ -41,7 +55,7 @@ module.exports = {
   },
 
   updateAnswerHelpful: (req, res) => {
-    console.log('this is answer req.params:', req.params);
+    // console.log('this is answer req.params:', req.params);
     let { id } = req.params;
     db.updateQuestionHelpful(id, (err, results) => {
       if (err) {
@@ -62,5 +76,8 @@ module.exports = {
       }
     })
   },
+
+
+
 
 }

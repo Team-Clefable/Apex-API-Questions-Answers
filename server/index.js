@@ -33,25 +33,6 @@ app.use('/qa', router);
 // app.post('/qa/questions/:id', (req, res) => { /* run corresponding models query function*/});
 // app.post('/qa/questions/:id/answers', (req, res) => { /* run corresponding models query function*/});
 
-// //PUT REQUESTS//
-// app.put('/qa/questions/:id/helpful', (req, res) => {
-//   console.log(req.params);
-//   let { id } = req.params;
-//   db.updateQuestionHelpful(id, (err, results) => {
-//     console.log('this is results:', results);
-//     if (err) {
-//       res.status(500).send(err);
-//     } else {
-//       res.status(200).send(results);
-//     }
-//   })
-// });
-
-// app.put('/qa/questions/:id/report', (req, res) => { /* run corresponding models query function*/});
-
-// app.put('/qa/answers/:id/helpful', (req, res) => { /* run corresponding models query function*/});
-
-// app.put('/qa/answers/:id/report', (req, res) => { /* run corresponding models query function*/});
 
 
 

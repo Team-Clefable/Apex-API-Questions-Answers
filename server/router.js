@@ -5,7 +5,7 @@ const models = require('./models.js');
 router
   .route('/questions/:id')
   .get(models.queryAllQuestions)
-  // .post()
+  .post(models.addQuestion)
 
 router
   .route('/questions/:id/answers')

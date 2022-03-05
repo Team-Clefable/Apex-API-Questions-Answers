@@ -31,7 +31,7 @@ CREATE TABLE questions (
   question_date BIGINT NOT NULL,
   asker_name VARCHAR(60) NOT NULL,
   asker_email VARCHAR(60) NOT NULL,
-  reported BOOLEAN,
+  reported BOOLEAN NOT NULL DEFAULT FALSE,
   question_helpfulness INT NOT NULL DEFAULT 0
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE answers (
   date BIGINT NOT NULL,
   answerer_name VARCHAR(60) NOT NULL,
   answerer_email VARCHAR(60) NOT NULL,
-  reported BOOLEAN,
+  reported BOOLEAN NOT NULL DEFAULT FALSE,
   helpfulness INTEGER NOT NULL DEFAULT 0
 );
 

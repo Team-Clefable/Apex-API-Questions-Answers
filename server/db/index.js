@@ -9,6 +9,9 @@ const pool = new Pool({
   port: process.env.PORT,
 });
 
+pool.on('connect', client => {
+  console.log('pool is connected to database');
+});
 
 module.exports = {
 
@@ -35,6 +38,27 @@ module.exports = {
   //     }
   //   });
   // },
+
+  addQuestion: (productId, date, { body, name, email }, callback) => {
+    // console.log('this is body:', body);
+    // console.log('this is date:', date);
+    // console.log('this is name:', name);
+    // console.log('this is email:', email);
+    // console.log('this is reported:', reported);
+    // console.log('this is question_helpfulness:', question_helpfulness);
+    //if changes to default, can remove the values that are based on
+    let queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+    pool.query(queryStr, [productId, body, date, name, email, reported, question_helpfulness], (err, res) => {
+      console.log('this is err:', err);
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, res);
+      }
+    });
+  },
+
+
 
 
   updateQuestionHelpful: (questionId, callback) => {
@@ -76,7 +100,7 @@ module.exports = {
   updateAnswerReport: (answerId, callback) => {
     let queryStr = `UPDATE answers SET reported = true WHERE id = $1`;
     pool.query(queryStr, [answerId], (err, res) => {
-      console.log(err);
+      // console.log(err);
       if (err) {
         callback(err);
       } else {
