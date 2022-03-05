@@ -1,0 +1,32 @@
+{
+  "name": "clefable-api-questions-answers",
+  "version": "1.0.0",
+  "description": "TEAM CLEFABLE API QUESTIONS AND ANSWERS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js",
+    "build-db": "psql -d qa -f db/schema.sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Clefable/Clefable-API-Questions-Answers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Clefable/Clefable-API-Questions-Answers/issues"
+  },
+  "homepage": "https://github.com/Team-Clefable/Clefable-API-Questions-Answers#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
