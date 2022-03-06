@@ -13,11 +13,25 @@ pool.on('connect', client => {
   console.log('pool is connected to database');
 });
 
+// let queryStr = `SELECT * FROM questions WHERE product_id = $1 ORDER BY question_helpfulness DESC`;
+
+//refactor by getting rid of models.js and sending back with .then/.catch blocks
 module.exports = {
 
-  //need to redo and shape data accordingly
+  //answers not sorted correct line 29 not firing for some reason
+  //diary this shit
   queryAllQuestions: (productId, callback) => {
-    let queryStr = `SELECT * FROM questions WHERE product_id = $1 ORDER BY question_helpfulness DESC`;
+    let queryStr = `SELECT product_id, json_agg(json_build_object
+      ('question_id', id, 'question_body', question_body, 'question_date', question_date, 'asker_name', asker_name, 'question_helpfulness', question_helpfulness, 'reported', reported, 'answers',
+     (SELECT json_object_agg (answers.id, json_build_object ('id', id, 'body', body, 'date', date, 'answerer_name', answerer_name, 'helpfulness', helpfulness, 'photos',
+     (SELECT json_agg (json_build_object ('id', answers_id, 'url', url)
+     )
+     FROM photos WHERE answers.id = answers_id)
+     ) ORDER BY helpfulness DESC )
+     FROM answers WHERE questions.id = answers.question_id
+     )
+     ) ORDER BY question_helpfulness DESC)
+     as results FROM questions WHERE product_id = $1 GROUP BY product_id`;
     // console.log('this is productId:', productId);
     pool.query(queryStr, [productId], (err, res) => {
       if (err) {

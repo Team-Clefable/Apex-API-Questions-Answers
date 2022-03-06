@@ -36,6 +36,12 @@ CREATE TABLE questions (
 );
 
 
+--CREATE TEMP TABLE FOR AUTO INCREMENTING
+CREATE TEMP TABLE tmp AS SELECT * FROM questions LIMIT 0;
+
+COPY tmp FROM '/home/changerbang/projects/team-clefable/questions.csv' DELIMITER ',' CSV HEADER;
+
+INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness) SELECT product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness FROM tmp;
 -- ---
 -- Table 'answers'
 --
@@ -54,6 +60,13 @@ CREATE TABLE answers (
 );
 
 
+CREATE TEMP TABLE tmp1 AS SELECT * FROM answers LIMIT 0;
+
+COPY tmp1 FROM '/home/changerbang/projects/team-clefable/answers.csv' DELIMITER ',' CSV HEADER;
+
+INSERT INTO answers (question_id, body, date, answerer_name, answerer_email, reported, helpfulness) SELECT question_id, body, date, answerer_name, answerer_email, reported, helpfulness FROM tmp1;
+
+
 -- ---
 -- Table 'photos'
 --
@@ -66,6 +79,12 @@ CREATE TABLE photos (
   url VARCHAR NOT NULL
 );
 
+
+CREATE TEMP TABLE tmp2 AS SELECT * FROM photos LIMIT 0;
+
+COPY tmp2 FROM '/home/changerbang/projects/team-clefable/answers_photos.csv' DELIMITER ',' CSV HEADER;
+
+INSERT INTO photos (answers_id, url) SELECT answers_id, url FROM tmp2;
 -- ---
 -- Table 'product'
 --
@@ -89,6 +108,20 @@ CREATE TABLE photos (
 ALTER TABLE answers ADD CONSTRAINT question_id_fk FOREIGN KEY (question_id) REFERENCES questions (id);
 -- ALTER TABLE questions ADD CONSTRAINT product_id_fk FOREIGN KEY (product_id) REFERENCES product (id);
 ALTER TABLE photos ADD CONSTRAINT answers_id_fk  FOREIGN KEY (answers_id) REFERENCES answers (id);
+
+--COPY DATA FROM CSV INTO TABLES
+
+-- \COPY questions FROM '/home/changerbang/projects/team-clefable/questions.csv' DELIMITER ',' CSV HEADER;
+
+-- \COPY answers FROM '/home/changerbang/projects/team-clefable/answers.csv' DELIMITER ',' CSV HEADER;
+
+-- \COPY photos FROM '/home/changerbang/projects/team-clefable/answers_photos.csv' DELIMITER ',' CSV HEADER;
+
+
+
+-- SELECT SETVAL((SELECT PG_GET_SERIAL_SEQUENCE('questions', 'id')), (SELECT (MAX('id') + 1) FROM ('questions'), FALSE);
+
+-- select setval('questions_id_seq', select max(id) from questions);
 
 -- ---
 -- Table Properties

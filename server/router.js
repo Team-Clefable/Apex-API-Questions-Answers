@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const models = require('./models.js');
 
-
+//if get rid of models.js need to require index.js instead.
 router
   .route('/questions/:id')
   .get(models.queryAllQuestions)
