@@ -47,8 +47,8 @@ module.exports = {
     // console.log('this is reported:', reported);
     // console.log('this is question_helpfulness:', question_helpfulness);
     //if changes to default, can remove the values that are based on
-    let queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-    pool.query(queryStr, [productId, body, date, name, email, reported, question_helpfulness], (err, res) => {
+    let queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email) VALUES ($1, $2, $3, $4, $5)`;
+    pool.query(queryStr, [productId, body, date, name, email], (err, res) => {
       console.log('this is err:', err);
       if (err) {
         callback(err);

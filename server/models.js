@@ -1,6 +1,7 @@
 const db = require('./db');
 
-// const date = Math.round(new Date().getTime()/1000);
+//create new date and set to unix timestamp
+const date = Math.round(new Date().getTime()/1000);
 
 module.exports = {
 
@@ -29,6 +30,9 @@ module.exports = {
       }
     });
   },
+////////
+
+
 
   updateQuestionHelpful: (req, res) => {
     // console.log(req.params);
