@@ -52,6 +52,17 @@ module.exports = {
     });
   },
 
+  addAnswer: (req, res) => {
+    let { id } = req.params;
+    db.addAnswer(id, date, req.body, (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(201).send(results)
+      }
+    });
+  },
+
 
 
 

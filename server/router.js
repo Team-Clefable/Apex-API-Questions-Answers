@@ -10,7 +10,7 @@ router
 router
   .route('/questions/:id/answers')
   .get(models.queryAllAnswers)
-  //.post()
+  .post(models.addAnswer)
 
 router
   .route('/questions/:id/helpful')
