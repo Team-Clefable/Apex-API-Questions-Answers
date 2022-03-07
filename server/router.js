@@ -9,7 +9,7 @@ router
 
 router
   .route('/questions/:id/answers')
-  //.get()
+  .get(models.queryAllAnswers)
   //.post()
 
 router

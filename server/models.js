@@ -19,7 +19,28 @@ module.exports = {
     });
   },
 
-  ///////currently working on////
+
+  //CURRENTLY WORKING ON//
+  queryAllAnswers: (req, res) => {
+    let { id, page = 1, count = 5 } = req.params;
+    db.queryAllAnswers(id, page, count, (err, results) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        let response = {
+          question: id,
+          page: page,
+          count: count,
+          results: results.rows[0].results
+        }
+        res.status(200).send(response);
+      }
+    });
+  },
+////////////////
+
+
+
   addQuestion: (req, res) => {
     let { id } = req.params;
     db.addQuestion(id, date, req.body, (err, results) => {
@@ -30,7 +51,7 @@ module.exports = {
       }
     });
   },
-////////
+
 
 
 

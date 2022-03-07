@@ -18,6 +18,8 @@ CREATE DATABASE qa;
 --connect to DB with
 \c qa;
 
+--Drop tables
+
 DROP TABLE IF EXISTS questions CASCADE;
 DROP TABLE IF EXISTS answers CASCADE;
 DROP TABLE IF EXISTS photos CASCADE;
@@ -59,7 +61,7 @@ CREATE TABLE answers (
   helpfulness INTEGER NOT NULL DEFAULT 0
 );
 
-
+--diary temp table
 CREATE TEMP TABLE tmp1 AS SELECT * FROM answers LIMIT 0;
 
 COPY tmp1 FROM '/home/changerbang/projects/team-clefable/answers.csv' DELIMITER ',' CSV HEADER;
@@ -131,16 +133,3 @@ ALTER TABLE photos ADD CONSTRAINT answers_id_fk  FOREIGN KEY (answers_id) REFERE
 -- ALTER TABLE `questions` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `photos` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `product` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ---
--- Test Data
--- ---
-
--- INSERT INTO `answers` (`id`,`body`,`date_written`,`answerer_name`,`answerer_email`,`reported`,`helpful`,`photos`,`question_id`) VALUES
--- ('','','','','','','','','');
--- INSERT INTO `questions` (`id`,`body`,`date_written`,`asker_name`,`asker_email`,`helpful`,`reported`,`product_id`) VALUES
--- ('','','','','','','','');
--- INSERT INTO `photos` (`id`,`url`,`answers_id`) VALUES
--- ('','','');
--- INSERT INTO `product` (`id`,`name`,`slogan`,`description`,`category`,`default_price`) VALUES
--- ('','','','','','');
