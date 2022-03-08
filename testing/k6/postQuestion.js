@@ -5,7 +5,7 @@ import { Counter } from 'k6/metrics';
 export const requests = new Counter('http_reqs');
 
 export const options = {
-  vus: 10,
+  vus: 100,
   duration: '30s',
 }
 
@@ -13,12 +13,25 @@ export const options = {
 //   stages: [
 //     { duration: '15s', target: 100 },
 //     { duration: '30s', target: 100 },
-//     { duration: '15s', target: 0 },
+//     // { duration: '15s', target: 0 },
 //   ],
 // };
 
 export default function () {
-  const res = http.get('http://localhost:3000/qa/questions/1');
+
+  var url = 'http://localhost:3000/qa/questions/42369';
+  const payload = JSON.stringify({
+    body: 'test',
+    name: 'mattest',
+    email: 'mattest@mattest.com',
+    product_id: '42369'
+  });
+  const params = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const res = http.post(url, payload, params);
   sleep(1);
   check(res, {
     'status was 200': (r) => r.status == 200,

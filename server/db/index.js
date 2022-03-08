@@ -20,7 +20,7 @@ module.exports = {
 
   //answers not sorted correct line 29 not firing for some reason
   //diary this stuff
-  queryAllQuestions: (productId, callback) => {
+  queryAllQuestions: (productId, page, count, callback) => {
     let queryStr = `SELECT product_id, json_agg(json_build_object(
       'question_id', id,
       'question_body', question_body,
@@ -38,12 +38,12 @@ module.exports = {
           'id', answers_id,
           'url', url)
       ), '[]')
-     FROM photos WHERE answers.id = answers_id)
+     FROM photos WHERE answers.id = answers_id LIMIT ${count} OFFSET ${count * page - count})
      )), '{}')
-     FROM answers WHERE questions.id = answers.question_id
+     FROM answers WHERE questions.id = question_id AND answers.reported = false LIMIT ${count} OFFSET ${count * page - count}
      )
      ) ORDER BY question_helpfulness DESC)
-     as results FROM questions WHERE product_id = $1 AND reported = false GROUP BY product_id `;
+     as results FROM questions WHERE product_id = $1 AND reported = false GROUP BY product_id LIMIT ${count} OFFSET ${count * page - count}`;
     // console.log('this is productId:', productId);
     pool.query(queryStr, [productId], (err, results) => {
       if (err) {
@@ -81,16 +81,10 @@ module.exports = {
   },
 
   addQuestion: (productId, date, { body, name, email }, callback) => {
-    // console.log('this is body:', body);
-    // console.log('this is date:', date);
-    // console.log('this is name:', name);
-    // console.log('this is email:', email);
-    // console.log('this is reported:', reported);
-    // console.log('this is question_helpfulness:', question_helpfulness);
     //if changes to default, can remove the values that are based on
     let queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email) VALUES ($1, $2, $3, $4, $5)`;
     pool.query(queryStr, [productId, body, date, name, email], (err, results) => {
-      console.log('this is err:', err);
+      // console.log('this is err:', err);
       if (err) {
         callback(err);
       } else {

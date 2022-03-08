@@ -4,24 +4,27 @@ import { Counter } from 'k6/metrics';
 
 export const requests = new Counter('http_reqs');
 
-export const options = {
-  vus: 100,
-  duration: '15s',
-}
-
 // export const options = {
-//   stages: [
-//     { duration: '30s', target: 100 },
-//     // { duration: '1m30s', target: 10 },
-//     // { duration: '20s', target: 0 },
-//   ],
-// };
+//   vus: 100,
+//   duration: '30s',
+// }
+
+export const options = {
+  stages: [
+    { duration: '15s', target: 100 },
+    { duration: '30s', target: 100 },
+    { duration: '15s', target: 0 },
+  ],
+};
 
 export default function () {
   const res = http.get('http://localhost:3000/qa/questions/1/answers');
   sleep(1);
   check(res, {
     'status was 200': (r) => r.status == 200,
+    'transaction time < 200ms' : r => r.timings.duration < 200,
+    'transaction time < 500ms' : r => r.timings.duration < 500,
+    'transaction time < 1000ms' : r => r.timings.duration < 1000,
     'transaction time < 2000ms' : r => r.timings.duration < 2000,
   });
 }
