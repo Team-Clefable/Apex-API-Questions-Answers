@@ -39,7 +39,7 @@ module.exports = {
           'url', url)
       ), '[]')
      FROM photos WHERE answers.id = answers_id)
-     ) ORDER BY helpfulness DESC ), '{}')
+     )), '{}')
      FROM answers WHERE questions.id = answers.question_id
      )
      ) ORDER BY question_helpfulness DESC)

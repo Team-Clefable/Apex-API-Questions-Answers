@@ -10,7 +10,7 @@ module.exports = {
     let { id } = req.params;
     // console.log(req.params);
     db.queryAllQuestions(id, (err, results) => {
-      console.log(err);
+      // console.log(err);
       if (err) {
         res.status(500).send(err);
       } else {

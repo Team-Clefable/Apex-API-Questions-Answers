@@ -4,9 +4,10 @@
   "description": "TEAM CLEFABLE API QUESTIONS AND ANSWERS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/index.js",
-    "build-db": "psql -d qa -f db/schema.sql"
+    "build-db": "psql -d qa -f db/schema.sql",
+    "test-questions": "k6 run testing/k6/getAllQuestions.js",
+    "test-answers": "k6 run testing/k6/getAllAnswers.js"
   },
   "repository": {
     "type": "git",

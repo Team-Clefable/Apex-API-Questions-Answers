@@ -111,6 +111,12 @@ ALTER TABLE answers ADD CONSTRAINT question_id_fk FOREIGN KEY (question_id) REFE
 -- ALTER TABLE questions ADD CONSTRAINT product_id_fk FOREIGN KEY (product_id) REFERENCES product (id);
 ALTER TABLE photos ADD CONSTRAINT answers_id_fk  FOREIGN KEY (answers_id) REFERENCES answers (id);
 
+
+--CREATE INDICES FOR foreign keys
+CREATE INDEX answers_question_id_idx ON answers (question_id);
+CREATE INDEX photos_answers_id_idx ON photos (answers_id);
+
+
 --COPY DATA FROM CSV INTO TABLES
 
 -- \COPY questions FROM '/home/changerbang/projects/team-clefable/questions.csv' DELIMITER ',' CSV HEADER;
