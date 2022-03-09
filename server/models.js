@@ -45,9 +45,10 @@ module.exports = {
     let { id } = req.params;
     db.addQuestion(id, date, req.body, (err, results) => {
       if (err) {
+        console.log(err);
         res.status(500).send(err);
       } else {
-        res.status(201).send(results.rows[0]);
+        res.status(201).send(results);
       }
     });
   },

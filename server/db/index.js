@@ -110,7 +110,7 @@ module.exports = {
   updateQuestionHelpful: (questionId, callback) => {
     let queryStr = `UPDATE questions SET question_helpfulness = question_helpfulness + 1 WHERE id = $1`;
     pool.query(queryStr, [questionId], (err, results) => {
-      console.log('this is results:', results);
+      // console.log('this is results:', results);
       if (err) {
         callback(err);
       } else {
@@ -122,7 +122,7 @@ module.exports = {
   updateQuestionReport: (questionId, callback) => {
     let queryStr = `UPDATE questions SET reported = true WHERE id = $1`;
     pool.query(queryStr, [questionId], (err, results) => {
-      console.log(err);
+      // console.log(err);
       if (err) {
         callback(err);
       } else {

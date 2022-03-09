@@ -17,13 +17,21 @@ export const options = {
 //   ],
 // };
 
-const randomNum = (max, min) => (
-  Math.floor(Math.random() * (max - 1 + min) + min)
-);
-let count = randomNum(1000000, 1);
-
 export default function () {
-  const res = http.get(`http://localhost:3000/qa/questions/${count}`);
+
+  var url = 'http://localhost:3000/qa/questions/1/helpful';
+  // const payload = JSON.stringify({
+  //   body: 'test',
+  //   name: 'mattest',
+  //   email: 'mattest@mattest.com',
+  //   product_id: '42369'
+  // });
+  // const params = {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // };
+  const res = http.put(url);
   sleep(1);
   check(res, {
     'status was 200': (r) => r.status == 200,

@@ -6,14 +6,14 @@ export const requests = new Counter('http_reqs');
 
 export const options = {
   vus: 100,
-  duration: '30s',
+  duration: '15s',
 }
 
 // export const options = {
 //   stages: [
 //     { duration: '15s', target: 100 },
 //     { duration: '30s', target: 100 },
-//     // { duration: '15s', target: 0 },
+//     { duration: '15s', target: 0 },
 //   ],
 // };
 
@@ -34,7 +34,7 @@ export default function () {
   const res = http.post(url, payload, params);
   sleep(1);
   check(res, {
-    'status was 200': (r) => r.status == 200,
+    'status was 201': (r) => r.status == 200,
     'transaction time < 200ms' : r => r.timings.duration < 200,
     'transaction time < 500ms' : r => r.timings.duration < 500,
     'transaction time < 1000ms' : r => r.timings.duration < 1000,

@@ -4,21 +4,25 @@ import { Counter } from 'k6/metrics';
 
 export const requests = new Counter('http_reqs');
 
-// export const options = {
-//   vus: 100,
-//   duration: '30s',
-// }
-
 export const options = {
-  stages: [
-    { duration: '15s', target: 100 },
-    { duration: '30s', target: 100 },
-    { duration: '15s', target: 0 },
-  ],
-};
+  vus: 100,
+  duration: '30s',
+}
+
+// export const options = {
+//   stages: [
+//     { duration: '15s', target: 100 },
+//     { duration: '30s', target: 100 },
+//     { duration: '15s', target: 0 },
+//   ],
+// };
+const randomNum = (max, min) => (
+  Math.floor(Math.random() * (max - 1 + min) + min)
+);
+let count = randomNum(1000000, 1);
 
 export default function () {
-  const res = http.get('http://localhost:3000/qa/questions/1/answers');
+  const res = http.get(`http://localhost:3000/qa/questions/${count}/answers`);
   sleep(1);
   check(res, {
     'status was 200': (r) => r.status == 200,

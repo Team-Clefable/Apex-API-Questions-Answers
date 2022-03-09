@@ -113,6 +113,7 @@ ALTER TABLE photos ADD CONSTRAINT answers_id_fk  FOREIGN KEY (answers_id) REFERE
 
 
 --CREATE INDICES FOR foreign keys
+CREATE INDEX questions_product_id_idx ON questions (product_id);
 CREATE INDEX answers_question_id_idx ON answers (question_id);
 CREATE INDEX photos_answers_id_idx ON photos (answers_id);
 
