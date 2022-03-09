@@ -16,10 +16,14 @@ export const options = {
 //     { duration: '15s', target: 0 },
 //   ],
 // };
+const randomNum = (max, min) => (
+  Math.floor(Math.random() * (max - 1 + min) + min)
+);
+let count = randomNum(1000000, 1);
 
 export default function () {
 
-  var url = 'http://localhost:3000/qa/questions/42369';
+  var url = `http://localhost:3000/qa/questions/${count}`;
   const payload = JSON.stringify({
     body: 'test',
     name: 'mattest',

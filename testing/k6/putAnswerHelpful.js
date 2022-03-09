@@ -17,9 +17,14 @@ export const options = {
 //   ],
 // };
 
+const randomNum = (max, min) => (
+  Math.floor(Math.random() * (max - 1 + min) + min)
+);
+let count = randomNum(1000000, 1);
+
 export default function () {
 
-  var url = 'http://localhost:3000/qa/answers/1/helpful';
+  var url = `http://localhost:3000/qa/answers/${count}/helpful`;
   // const payload = JSON.stringify({
   //   body: 'test',
   //   name: 'mattest',
