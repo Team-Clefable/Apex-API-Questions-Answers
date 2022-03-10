@@ -24,7 +24,7 @@ module.exports = {
     let queryStr = `SELECT product_id, json_agg(json_build_object(
       'question_id', id,
       'question_body', question_body,
-      'question_date', question_date,
+      'question_date', tochar(to_timestamp(question_date), 'DD-MM-YYYY"T"HH24:MI:SS:MS'Z",
       'asker_name', asker_name,
       'question_helpfulness', question_helpfulness,
       'reported', reported,
