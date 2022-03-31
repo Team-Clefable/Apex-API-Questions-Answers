@@ -13,13 +13,9 @@ pool.on('connect', client => {
   console.log('pool is connected to database');
 });
 
-// let queryStr = `SELECT * FROM questions WHERE product_id = $1 ORDER BY question_helpfulness DESC`;
-
 //refactor by getting rid of models.js and sending back with .then/.catch blocks
 module.exports = {
 
-  //answers not sorted correct line 29 not firing for some reason
-  //diary this stuff
   queryAllQuestions: (productId, page, count, callback) => {
     let queryStr = `SELECT product_id, json_agg(json_build_object(
       'question_id', id,
@@ -44,7 +40,6 @@ module.exports = {
      )
      ) ORDER BY question_helpfulness DESC)
      as results FROM questions WHERE product_id = $1 AND reported = false GROUP BY product_id LIMIT ${count} OFFSET ${count * page - count}`;
-    // console.log('this is productId:', productId);
     pool.query(queryStr, [productId], (err, results) => {
       if (err) {
         callback(err);
@@ -81,10 +76,8 @@ module.exports = {
   },
 
   addQuestion: (productId, date, { body, name, email }, callback) => {
-    //if changes to default, can remove the values that are based on
     let queryStr = `INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email) VALUES ($1, $2, $3, $4, $5)`;
     pool.query(queryStr, [productId, body, date, name, email], (err, results) => {
-      // console.log('this is err:', err);
       if (err) {
         callback(err);
       } else {
@@ -110,7 +103,6 @@ module.exports = {
   updateQuestionHelpful: (questionId, callback) => {
     let queryStr = `UPDATE questions SET question_helpfulness = question_helpfulness + 1 WHERE id = $1`;
     pool.query(queryStr, [questionId], (err, results) => {
-      // console.log('this is results:', results);
       if (err) {
         callback(err);
       } else {
@@ -122,7 +114,6 @@ module.exports = {
   updateQuestionReport: (questionId, callback) => {
     let queryStr = `UPDATE questions SET reported = true WHERE id = $1`;
     pool.query(queryStr, [questionId], (err, results) => {
-      // console.log(err);
       if (err) {
         callback(err);
       } else {
@@ -134,7 +125,6 @@ module.exports = {
   updateAnswerHelpful: (answerId, callback) => {
     let queryStr = `UPDATE answers SET helpfulness = helpfulness + 1 WHERE id = $1`;
     pool.query(queryStr, [answerId], (err, results) => {
-      // console.log('this is results:', results);
       if (err) {
         callback(err);
       } else {
@@ -146,7 +136,6 @@ module.exports = {
   updateAnswerReport: (answerId, callback) => {
     let queryStr = `UPDATE answers SET reported = true WHERE id = $1`;
     pool.query(queryStr, [answerId], (err, results) => {
-      // console.log(err);
       if (err) {
         callback(err);
       } else {

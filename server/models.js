@@ -8,9 +8,7 @@ module.exports = {
 
   queryAllQuestions: (req, res) => {
     let { id, page = 1, count =  5 } = req.params;
-    // console.log(req.params);
     db.queryAllQuestions(id, page, count, (err, results) => {
-      // console.log(err);
       if (err) {
         res.status(500).send(err);
       } else {
@@ -20,7 +18,6 @@ module.exports = {
   },
 
 
-  //CURRENTLY WORKING ON//
   queryAllAnswers: (req, res) => {
     let { id, page = 1, count = 5 } = req.params;
     db.queryAllAnswers(id, page, count, (err, results) => {
@@ -37,7 +34,6 @@ module.exports = {
       }
     });
   },
-////////////////
 
 
 
@@ -45,7 +41,6 @@ module.exports = {
     let { id } = req.params;
     db.addQuestion(id, date, req.body, (err, results) => {
       if (err) {
-        // console.log(err);
         res.status(500).send(err);
       } else {
         res.status(201).send(results);
@@ -68,10 +63,8 @@ module.exports = {
 
 
   updateQuestionHelpful: (req, res) => {
-    // console.log(req.params);
     let { id } = req.params;
     db.updateQuestionHelpful(id, (err, results) => {
-      // console.log('this is results:', results);
       if (err) {
         res.status(500).send(err);
       } else {
@@ -92,7 +85,6 @@ module.exports = {
   },
 
   updateAnswerHelpful: (req, res) => {
-    // console.log('this is answer req.params:', req.params);
     let { id } = req.params;
     db.updateQuestionHelpful(id, (err, results) => {
       if (err) {
